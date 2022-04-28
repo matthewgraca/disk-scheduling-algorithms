@@ -4,11 +4,11 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-public class VirtualMemoryTest{
+public class AddressTranslatorTest{
   @Test
   public void example1(){
-    int actualPageNumber = VirtualMemory.computePageNumber(2, 10500);
-    int actualOffset = VirtualMemory.computeOffset(2, 10500); 
+    int actualPageNumber = AddressTranslator.computePageNumber(2, 10500);
+    int actualOffset = AddressTranslator.computeOffset(2, 10500); 
     int expectedPageNumber = 5;
     int expectedOffset = 260;
 
