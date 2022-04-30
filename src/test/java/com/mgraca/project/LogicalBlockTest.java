@@ -1,4 +1,4 @@
-package com.mgraca.project;
+package com.mgraca.project.taskthree;
 
 import static org.junit.Assert.assertTrue;
 

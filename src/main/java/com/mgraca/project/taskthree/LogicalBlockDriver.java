@@ -1,4 +1,4 @@
-package com.mgraca.project;
+package com.mgraca.project.taskthree;
 
 import java.util.Scanner;
 import java.util.Arrays;

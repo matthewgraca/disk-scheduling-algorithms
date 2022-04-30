@@ -1,4 +1,4 @@
-package com.mgraca.project;
+package com.mgraca.project.taskthree;
 
 public class LogicalBlock{
   /**
