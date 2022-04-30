@@ -5,8 +5,8 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.mgraca.project</groupId>
-  <artifactId>disk-scheduling-algorithms</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <artifactId>logical-block-address-translator</artifactId>
+  <version>1.0</version>
 
   <name>disk-scheduling-algorithms</name>
   <!-- FIXME change it to the project's website -->
@@ -58,7 +58,7 @@
               <manifest>
                 <addClasspath>true</addClasspath>
                 <classpathPrefix>lib/</classpathPrefix>
-                <mainClass>com.mgraca.project.App</mainClass>
+                <mainClass>com.mgraca.project.LogicalBlockDriver</mainClass>
               </manifest>
             </archive>
           </configuration>
