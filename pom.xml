@@ -4,8 +4,8 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.mgraca.project</groupId>
-  <artifactId>logical-block-address-translator</artifactId>
+  <groupId>com.mgraca.project.tasktwo</groupId>
+  <artifactId>disk-scheduler</artifactId>
   <version>1.0</version>
 
   <name>disk-scheduling-algorithms</name>
@@ -58,7 +58,7 @@
               <manifest>
                 <addClasspath>true</addClasspath>
                 <classpathPrefix>lib/</classpathPrefix>
-                <mainClass>com.mgraca.project.LogicalBlockDriver</mainClass>
+                <mainClass>com.mgraca.project.tasktwo.DiskSchedulerDriver</mainClass>
               </manifest>
             </archive>
           </configuration>
