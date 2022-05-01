@@ -10,7 +10,7 @@ public class DiskSchedulerTest{
   public void testCSCANExample1(){
     int head = 53;
     int[] queue = {98,183,37,122,14,124,65,67};
-    int[] expected = {382, 2};
+    int[] expected = {5182, 2};
     int[] actual = CSCANDiskScheduler.calculate(head, queue); 
     String errorMsg = "Expected: " + Arrays.toString(expected) + ", returned: " + Arrays.toString(actual);
 
