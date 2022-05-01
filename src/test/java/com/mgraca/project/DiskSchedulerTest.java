@@ -18,6 +18,16 @@ public class DiskSchedulerTest{
   }
 
   @Test
+  public void testCSCANWithNoWrapAround(){
+    int head = 53;
+    int[] queue = {98,183,122,124,65,67};
+    int[] expected = {130, 0};
+    int[] actual = CSCANDiskScheduler.calculate(head, queue); 
+    String errorMsg = "Expected: " + Arrays.toString(expected) + ", returned: " + Arrays.toString(actual);
+
+    assertTrue(errorMsg, Arrays.equals(expected, actual));
+  }
+  @Test
   public void testFCFSExample1(){
     int head = 53;
     int[] queue = {98,183,37,122,14,124,65,67};
@@ -39,6 +49,17 @@ public class DiskSchedulerTest{
     assertTrue(errorMsg, Arrays.equals(expected, actual));
   }
 
+  @Test
+  public void testSCANWithNoWrapAround(){
+    int head = 53;
+    int[] queue = {37,14};
+    int[] expected = {39, 0};
+    int[] actual = SCANDiskScheduler.calculate(head, queue); 
+    String errorMsg = "Expected: " + Arrays.toString(expected) + ", returned: " + Arrays.toString(actual);
+
+    assertTrue(errorMsg, Arrays.equals(expected, actual));
+
+  }
   @Test
   public void testSSTFExample1(){
     int head = 53;

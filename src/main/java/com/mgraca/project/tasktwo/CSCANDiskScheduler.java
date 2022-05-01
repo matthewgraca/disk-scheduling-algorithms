@@ -24,16 +24,17 @@ public class CSCANDiskScheduler extends SCAN{
     else{
       // add a 0 and 4999 and sort the sequence in ascending order
       ArrayList<Integer> seekOrder = initSeekOrder(queue);
-      seekOrder.add(0);
-      seekOrder.add(4999);
       Collections.sort(seekOrder);
+      // ensure that if the sequence wraps around, that the head will hit 0 and 4999
+      if (seekOrder.get(0) < head){
+        seekOrder.add(0, 0);
+        seekOrder.add(4999);
+      }
 
       // find the index where scan starts, then manipulate the arrays to CSCAN order
       int i = findStartScanIndex(seekOrder, head);
-      System.out.println(i);
       List<Integer> finalSeekOrder = setSeekOrder(seekOrder, i);
       int[] sequence = listToIntArray(finalSeekOrder);
-      System.out.println(Arrays.toString(sequence));
 
       // marshall the list so that FCFS can use it
       return FCFSDiskScheduler.calculate(head, sequence);
