@@ -13,36 +13,76 @@ public class SCANDiskScheduler{
    */
   public static int[] calculate(int head, int[] queue){
     // add a 0 and sort the seek sequence in descending order
-    ArrayList<Integer> seekOrder = new ArrayList<>(queue.length + 1);
-    for (int i : queue){
-      seekOrder.add(i);
-    }
+    ArrayList<Integer> seekOrder = initSeekOrder(queue);
     seekOrder.add(0);
     Collections.sort(seekOrder, Collections.reverseOrder());
 
-    // find the index where the head begins scanning from
+    int i = findStartScanIndex(seekOrder, head);
+    List<Integer> finalSeekOrder = setSeekOrder(seekOrder, i);
+    int[] sequence = listToIntArray(finalSeekOrder);
+
+    return FCFSDiskScheduler.calculate(head, sequence);
+  }
+
+  /**
+   * get the index where the scan should begin
+   * @param head  where the scan begins
+   * @param arr   the array being scanned
+   * @return  the index where the scan algo should begin
+   */
+  private static int findStartScanIndex(ArrayList<Integer> arr, int head){
     boolean scan = true;
     int i = 0;
     while (scan){
-      if (seekOrder.get(i) <= head){
+      if (arr.get(i) <= head){
         scan = false;
       }
       else{
         i++;
       }
     }
-    
+    return i;
+  }
+
+  /**
+   * prepares the seek order list from a given queue
+   * @param queue the array being converted to an arraylist
+   * @return  the arraylist version of the queue, with a 0 added
+   */
+  private static ArrayList<Integer> initSeekOrder(int[] queue){
+    ArrayList<Integer> seekOrder = new ArrayList<>(queue.length + 1);
+    for (int i : queue){
+      seekOrder.add(i);
+    }
+    return seekOrder;
+  }
+
+  /**
+   * establishes the final seek order; assumes the list is properly set up
+   * @param seekOrder the current seek order being prepared
+   * @param i         the index where the list is being split
+   * @return  an arraylist with the proper seek order
+   */
+  private static List<Integer> setSeekOrder(ArrayList<Integer> seekOrder, int i){
     // split the array at that index; sort by ascending the left array and append it to the right array
     List<Integer> right = seekOrder.subList(i, seekOrder.size());
     List<Integer> left = seekOrder.subList(0, i);
     Collections.sort(left);
     right.addAll(left); // right now contains the proper SCAN order
+    return right;
+  }
 
-    // marshall parameters so we can use FCFS 
-    int[] sequence = new int[right.size()];
-    for (int j = 0; j < right.size(); j++){
-      sequence[j] = right.get(j);
+  /**
+   * takes the final scan order and makes it an array of primitives so FCFS can work on it
+   * @param seekOrder the final scan order
+   * @return  an array containing the final scan order
+   */
+  private static int[] listToIntArray(List<Integer> seekOrder){
+    // marshall parameters so that FCFS can use this
+    int[] sequence = new int[seekOrder.size()];
+    for (int j = 0; j < seekOrder.size(); j++){
+      sequence[j] = seekOrder.get(j);
     }
-    return FCFSDiskScheduler.calculate(head, sequence);
+    return sequence;
   }
 }
