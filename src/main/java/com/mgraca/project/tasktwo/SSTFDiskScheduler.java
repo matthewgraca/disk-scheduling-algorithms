@@ -1,5 +1,4 @@
 package com.mgraca.project.tasktwo;
-import java.util.Arrays;
 
 public class SSTFDiskScheduler{
   /**
