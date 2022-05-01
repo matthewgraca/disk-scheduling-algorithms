@@ -1,10 +1,10 @@
 package com.mgraca.project.tasktwo;
 
-import java.util.Collections;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 
-public class SCANDiskScheduler extends SCAN{
+public class CSCAN{
   /**
    * calcuates the total head movement and amount of pivots
    * @param head  the initial position of the disk head
@@ -12,30 +12,29 @@ public class SCANDiskScheduler extends SCAN{
    * @return  an array where the first value is the total head movement and the second value is the amount of pivots
    */
   public static int[] calculate(int head, int[] queue){
-    int n = queue.length;
-    if (n == 0){
+    if (queue.length == 0){
       return new int[]{0,0};
     }
-    else if (n == 1){
+    else if (queue.length == 1){
       return new int[]{Math.abs(head - queue[0]),0};
     }
     else{
-      // add a 0 and sort the seek sequence in descending order
-      ArrayList<Integer> seekOrder = initSeekOrder(queue);
-      Collections.sort(seekOrder, Collections.reverseOrder());
-
-      // ensure head eventually goes to 0 if there is a value that is larger than head
-      if (seekOrder.get(0) > head){
-        seekOrder.add(0);
+      // add a 0 and 4999 and sort the sequence in ascending order
+      ArrayList<Integer> seekOrder = DiskSchedulerUtility.initSeekOrder(queue);
+      Collections.sort(seekOrder);
+      // ensure that if the sequence wraps around, that the head will hit 0 and 4999
+      if (seekOrder.get(0) < head){
+        seekOrder.add(0, 0);
+        seekOrder.add(4999);
       }
 
-      // find the index where scan starts, then manipulate the arrays to SCAN order
+      // find the index where scan starts, then manipulate the arrays to CSCAN order
       int i = findStartScanIndex(seekOrder, head);
       List<Integer> finalSeekOrder = setSeekOrder(seekOrder, i);
+      int[] sequence = DiskSchedulerUtility.listToIntArray(finalSeekOrder);
 
       // marshall the list so that FCFS can use it
-      int[] sequence = listToIntArray(finalSeekOrder);
-      return FCFSDiskScheduler.calculate(head, sequence);
+      return FCFS.calculate(head, sequence);
     }
   }
 
@@ -49,7 +48,7 @@ public class SCANDiskScheduler extends SCAN{
     boolean scan = true;
     int i = 0;
     while (scan){
-      if (arr.get(i) <= head){
+      if (arr.get(i) > head){
         scan = false;
       }
       else{
@@ -66,11 +65,10 @@ public class SCANDiskScheduler extends SCAN{
    * @return  an arraylist with the proper seek order
    */
   private static List<Integer> setSeekOrder(ArrayList<Integer> seekOrder, int i){
-    // split the array at that index; get left array and append it to the right array
+    // split the array at that index; sort by ascending the left array and append it to the right array
     List<Integer> right = seekOrder.subList(i, seekOrder.size());
     List<Integer> left = seekOrder.subList(0, i);
-    Collections.sort(left);
-    right.addAll(left); // right now contains the proper SCAN order
+    right.addAll(left); // right now contains the final CSCAN order
     return right;
   }
 }

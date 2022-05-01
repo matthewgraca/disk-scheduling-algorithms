@@ -11,7 +11,7 @@ public class DiskSchedulerTest{
     int head = 53;
     int[] queue = {98,183,37,122,14,124,65,67};
     int[] expected = {9982, 2};
-    int[] actual = CSCANDiskScheduler.calculate(head, queue); 
+    int[] actual = CSCAN.calculate(head, queue); 
     String errorMsg = "Expected: " + Arrays.toString(expected) + ", returned: " + Arrays.toString(actual);
 
     assertTrue(errorMsg, Arrays.equals(expected, actual));
@@ -22,7 +22,7 @@ public class DiskSchedulerTest{
     int head = 53;
     int[] queue = {98,183,122,124,65,67};
     int[] expected = {130, 0};
-    int[] actual = CSCANDiskScheduler.calculate(head, queue); 
+    int[] actual = CSCAN.calculate(head, queue); 
     String errorMsg = "Expected: " + Arrays.toString(expected) + ", returned: " + Arrays.toString(actual);
 
     assertTrue(errorMsg, Arrays.equals(expected, actual));
@@ -32,7 +32,7 @@ public class DiskSchedulerTest{
     int head = 53;
     int[] queue = {98,183,37,122,14,124,65,67};
     int[] expected = {640, 6};
-    int[] actual = FCFSDiskScheduler.calculate(head, queue); 
+    int[] actual = FCFS.calculate(head, queue); 
     String errorMsg = "Expected: " + Arrays.toString(expected) + ", returned: " + Arrays.toString(actual);
 
     assertTrue(errorMsg, Arrays.equals(expected, actual));
@@ -43,7 +43,7 @@ public class DiskSchedulerTest{
     int head = 53;
     int[] queue = {98,183,37,122,14,124,65,67};
     int[] expected = {236, 1};
-    int[] actual = SCANDiskScheduler.calculate(head, queue); 
+    int[] actual = SCAN.calculate(head, queue); 
     String errorMsg = "Expected: " + Arrays.toString(expected) + ", returned: " + Arrays.toString(actual);
 
     assertTrue(errorMsg, Arrays.equals(expected, actual));
@@ -54,7 +54,7 @@ public class DiskSchedulerTest{
     int head = 53;
     int[] queue = {37,14};
     int[] expected = {39, 0};
-    int[] actual = SCANDiskScheduler.calculate(head, queue); 
+    int[] actual = SCAN.calculate(head, queue); 
     String errorMsg = "Expected: " + Arrays.toString(expected) + ", returned: " + Arrays.toString(actual);
 
     assertTrue(errorMsg, Arrays.equals(expected, actual));
@@ -65,7 +65,7 @@ public class DiskSchedulerTest{
     int head = 53;
     int[] queue = {98,183,37,122,14,124,65,67};
     int[] expected = {236, 2};
-    int[] actual = SSTFDiskScheduler.calculate(head, queue); 
+    int[] actual = SSTF.calculate(head, queue); 
     String errorMsg = "Expected: " + Arrays.toString(expected) + ", returned: " + Arrays.toString(actual);
 
     assertTrue(errorMsg, Arrays.equals(expected, actual));

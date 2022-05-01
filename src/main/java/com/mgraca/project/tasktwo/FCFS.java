@@ -1,6 +1,6 @@
 package com.mgraca.project.tasktwo;
 
-public class FCFSDiskScheduler{
+public class FCFS{
   /**
    * calcuates the total head movement and amount of pivots
    * @param head  the initial position of the disk head

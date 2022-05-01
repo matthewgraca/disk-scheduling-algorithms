@@ -2,7 +2,7 @@ package com.mgraca.project.tasktwo;
 
 import java.util.Arrays;
 
-public class SSTFDiskScheduler{
+public class SSTF{
   /**
    * calcuates the total head movement and amount of pivots
    * @param head  the initial position of the disk head
@@ -26,7 +26,7 @@ public class SSTFDiskScheduler{
         swap(i, j, sequence);
         currHead = sequence[i];
       }
-      return FCFSDiskScheduler.calculate(head, sequence);
+      return FCFS.calculate(head, sequence);
     }
   }
 
