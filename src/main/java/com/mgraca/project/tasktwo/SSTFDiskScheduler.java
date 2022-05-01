@@ -1,5 +1,7 @@
 package com.mgraca.project.tasktwo;
 
+import java.util.Arrays;
+
 public class SSTFDiskScheduler{
   /**
    * calcuates the total head movement and amount of pivots
@@ -8,14 +10,24 @@ public class SSTFDiskScheduler{
    * @return  an array where the first value is the total head movement and the second value is the amount of pivots
    */
   public static int[] calculate(int head, int[] queue){
-    // sort the array by shortest seek time, then apply FCFS
-    int currHead = head;
-    for (int i = 0; i < queue.length; i++){
-      int j = smallestDistanceIndex(currHead, i, queue);
-      swap(i, j, queue);
-      currHead = queue[i];
+    int n = queue.length;
+    if (n == 0){
+      return new int[]{0,0};
     }
-    return FCFSDiskScheduler.calculate(head, queue);
+    else if (n == 1){
+      return new int[]{Math.abs(head - queue[0]), 0};
+    }
+    else{
+      int[] sequence = Arrays.copyOf(queue, n);
+      // sort the array by shortest seek time, then apply FCFS
+      int currHead = head;
+      for (int i = 0; i < n; i++){
+        int j = smallestDistanceIndex(currHead, i, sequence);
+        swap(i, j, sequence);
+        currHead = sequence[i];
+      }
+      return FCFSDiskScheduler.calculate(head, sequence);
+    }
   }
 
   /**

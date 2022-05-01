@@ -15,21 +15,29 @@ public class CSCANDiskScheduler extends SCAN{
    * @return  an array where the first value is the total head movement and the second value is the amount of pivots
    */
   public static int[] calculate(int head, int[] queue){
-    // add a 0 and 4999 and sort the sequence in ascending order
-    ArrayList<Integer> seekOrder = initSeekOrder(queue);
-    seekOrder.add(0);
-    seekOrder.add(4999);
-    Collections.sort(seekOrder);
+    if (queue.length == 0){
+      return new int[]{0,0};
+    }
+    else if (queue.length == 1){
+      return new int[]{Math.abs(head - queue[0]),0};
+    }
+    else{
+      // add a 0 and 4999 and sort the sequence in ascending order
+      ArrayList<Integer> seekOrder = initSeekOrder(queue);
+      seekOrder.add(0);
+      seekOrder.add(4999);
+      Collections.sort(seekOrder);
 
-    // find the index where scan starts, then manipulate the arrays to CSCAN order
-    int i = findStartScanIndex(seekOrder, head);
-    System.out.println(i);
-    List<Integer> finalSeekOrder = setSeekOrder(seekOrder, i);
-    int[] sequence = listToIntArray(finalSeekOrder);
-    System.out.println(Arrays.toString(sequence));
+      // find the index where scan starts, then manipulate the arrays to CSCAN order
+      int i = findStartScanIndex(seekOrder, head);
+      System.out.println(i);
+      List<Integer> finalSeekOrder = setSeekOrder(seekOrder, i);
+      int[] sequence = listToIntArray(finalSeekOrder);
+      System.out.println(Arrays.toString(sequence));
 
-    // marshall the list so that FCFS can use it
-    return FCFSDiskScheduler.calculate(head, sequence);
+      // marshall the list so that FCFS can use it
+      return FCFSDiskScheduler.calculate(head, sequence);
+    }
   }
 
   /**

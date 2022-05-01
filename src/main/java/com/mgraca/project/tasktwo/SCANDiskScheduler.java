@@ -12,18 +12,26 @@ public class SCANDiskScheduler extends SCAN{
    * @return  an array where the first value is the total head movement and the second value is the amount of pivots
    */
   public static int[] calculate(int head, int[] queue){
-    // add a 0 and sort the seek sequence in descending order
-    ArrayList<Integer> seekOrder = initSeekOrder(queue);
-    seekOrder.add(0);
-    Collections.sort(seekOrder, Collections.reverseOrder());
+    if (queue.length == 0){
+      return new int[]{0,0};
+    }
+    else if (queue.length == 1){
+      return new int[]{Math.abs(head - queue[0]),0};
+    }
+    else{
+      // add a 0 and sort the seek sequence in descending order
+      ArrayList<Integer> seekOrder = initSeekOrder(queue);
+      seekOrder.add(0);
+      Collections.sort(seekOrder, Collections.reverseOrder());
 
-    // find the index where scan starts, then manipulate the arrays to SCAN order
-    int i = findStartScanIndex(seekOrder, head);
-    List<Integer> finalSeekOrder = setSeekOrder(seekOrder, i);
+      // find the index where scan starts, then manipulate the arrays to SCAN order
+      int i = findStartScanIndex(seekOrder, head);
+      List<Integer> finalSeekOrder = setSeekOrder(seekOrder, i);
 
-    // marshall the list so that FCFS can use it
-    int[] sequence = listToIntArray(finalSeekOrder);
-    return FCFSDiskScheduler.calculate(head, sequence);
+      // marshall the list so that FCFS can use it
+      int[] sequence = listToIntArray(finalSeekOrder);
+      return FCFSDiskScheduler.calculate(head, sequence);
+    }
   }
 
   /**
